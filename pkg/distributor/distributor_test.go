@@ -20,8 +20,7 @@ import (
 // mockRing doesn't do any consistent hashing, just returns same ingesters for every query.
 type mockRing struct {
 	prometheus.Counter
-	ingesters        []*ring.IngesterDesc
-	heartbeatTimeout time.Duration
+	ingesters []*ring.IngesterDesc
 }
 
 func (r mockRing) Get(key uint32, op ring.Operation) (ring.ReplicationSet, error) {
@@ -163,8 +162,7 @@ func TestDistributorPush(t *testing.T) {
 				Counter: prometheus.NewCounter(prometheus.CounterOpts{
 					Name: "foo",
 				}),
-				ingesters:        ingesterDescs,
-				heartbeatTimeout: 1 * time.Minute,
+				ingesters: ingesterDescs,
 			}
 
 			d, err := New(Config{
@@ -302,8 +300,7 @@ func TestDistributorQuery(t *testing.T) {
 				Counter: prometheus.NewCounter(prometheus.CounterOpts{
 					Name: "foo",
 				}),
-				ingesters:        ingesterDescs,
-				heartbeatTimeout: 1 * time.Minute,
+				ingesters: ingesterDescs,
 			}
 
 			d, err := New(Config{
